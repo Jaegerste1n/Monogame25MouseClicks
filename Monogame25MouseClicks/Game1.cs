@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Emit;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,7 +15,7 @@ namespace Monogame25MouseClicks
         MouseState mouseState;
         MouseState prevMouseState;
         Color buttonColor;
-        Random rng = new Random();
+        Random generator = new Random();
 
         public Game1()
         {
@@ -28,6 +29,7 @@ namespace Monogame25MouseClicks
             // TODO: Add your initialization logic here
             quitRect = new Rectangle(10, 10, 200, 63);
             buttonColor = Color.White;
+            Window.Title = "Grand Coagulation Apostate Goose Chase Omega 2003 Ad Nihilum Redi Edition (Haunted)";
 
             base.Initialize();
         }
@@ -46,11 +48,12 @@ namespace Monogame25MouseClicks
                 Exit();
             prevMouseState = mouseState;
             mouseState = Mouse.GetState();
-            
+            int rng = generator.Next(0, 600);
+            int rng2 = generator.Next(0, 400);
             if (quitRect.Contains(mouseState.Position))
             {
                 buttonColor = Color.Green;
-                quitRect = new Rectangle(10, 10, 200, 63);
+                quitRect = new Rectangle(rng, rng2, 200, 63);
             }
             else
             {

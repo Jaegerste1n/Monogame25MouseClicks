@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -12,7 +13,8 @@ namespace Monogame25MouseClicks
         Rectangle quitRect;
         MouseState mouseState;
         MouseState prevMouseState;
-
+        Color buttonColor;
+        Random rng = new Random();
 
         public Game1()
         {
@@ -25,7 +27,7 @@ namespace Monogame25MouseClicks
         {
             // TODO: Add your initialization logic here
             quitRect = new Rectangle(10, 10, 200, 63);
-            
+            buttonColor = Color.White;
 
             base.Initialize();
         }
@@ -44,6 +46,18 @@ namespace Monogame25MouseClicks
                 Exit();
             prevMouseState = mouseState;
             mouseState = Mouse.GetState();
+            
+            if (quitRect.Contains(mouseState.Position))
+            {
+                buttonColor = Color.Green;
+                quitRect = new Rectangle(10, 10, 200, 63);
+            }
+            else
+            {
+                buttonColor = Color.White;
+            }
+
+
             if (mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
             {
                 if (quitRect.Contains(mouseState.Position))
@@ -62,7 +76,7 @@ namespace Monogame25MouseClicks
         {
             GraphicsDevice.Clear(Color.White);
             _spriteBatch.Begin();
-            _spriteBatch.Draw(quitTexture, quitRect, Color.White);
+            _spriteBatch.Draw(quitTexture, quitRect, buttonColor);
             _spriteBatch.End();
 
 
